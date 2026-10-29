@@ -11,27 +11,68 @@
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Google Fonts: Oswald, Montserrat & Playfair Display -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;0,900;1,900&family=Oswald:wght@700;900&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:ital,wght@0,400;0,700;0,900;1,900&family=Oswald:wght@700;900&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
 
     <style>
+        /* Default Persona 3 Reload Theme Variables */
         :root {
-            --p3-blue-dark: #000c1e;
-            --p3-blue-mid: #002b66;
-            --p3-blue-light: #0052cc;
-            --p3-cyan: #00f2ff;
-            --p3-pink: #ff0055;
-            --p3-red-glow: #ff1a53;
+            --bg-dark: #000c1e;
+            --bg-mid: #002b66;
+            --bg-sec-1: #001229;
+            --bg-sec-2: #001738;
+            --primary-accent: #0052cc;
+            --secondary-accent: #ff0055;
+            --highlight-cyan: #73edff;
+            --card-border: #0052cc;
+            --text-glow: rgba(0, 82, 204, 0.5);
             --p3-yellow: #ffde00;
+            --text-main: #ffffff;
+            --text-sub: #73edff;
+        }
+
+        /* Persona 4 Golden Theme Variables */
+        body.theme-p4 {
+            --bg-dark: #ffea00;
+            --bg-mid: #ffd000;
+            --bg-sec-1: #f7e000;
+            --bg-sec-2: #f2d200;
+            --primary-accent: #111111;
+            --secondary-accent: #a6e22e;
+            --highlight-cyan: #111111;
+            --card-border: #111111;
+            --text-glow: rgba(0, 0, 0, 0.25);
+            --text-main: #111111;
+            --text-sub: #111111;
+            background: linear-gradient(180deg, #ffea00 0%, #ffc400 35%, #ff9900 70%, #ff8800 100%) !important;
+            background-attachment: fixed !important;
+        }
+
+        /* Persona 5 Theme Variables (Strict Dark Red, Black & White) */
+        body.theme-p5 {
+            --bg-dark: #4d0000;
+            --bg-mid: #260000;
+            --bg-sec-1: #1a0000;
+            --bg-sec-2: #0d0000;
+            --primary-accent: #000000;
+            --secondary-accent: #ff0033;
+            --highlight-cyan: #ffffff;
+            --card-border: #ff0033;
+            --text-glow: rgba(255, 0, 51, 0.5);
+            --text-main: #ffffff;
+            --text-sub: #ff0033;
+            background: linear-gradient(135deg, #2b0000 0%, #1a0000 50%, #000000 100%) !important;
+            background-attachment: fixed !important;
         }
 
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: var(--p3-blue-dark);
-            color: #ffffff;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
             overflow-x: hidden;
+            transition: background 0.4s ease, color 0.4s ease;
         }
 
         .font-p3 {
@@ -44,6 +85,49 @@
             font-style: italic;
         }
 
+        /* Dynamic Theme Section Background Overrides */
+        body.theme-p4 section,
+        body.theme-p4 section#about,
+        body.theme-p4 section#skills,
+        body.theme-p4 section#projects,
+        body.theme-p4 section#experience,
+        body.theme-p4 section#contact {
+            background-color: transparent !important;
+            border-color: #111111 !important;
+        }
+
+        body.theme-p5 section,
+        body.theme-p5 section#about,
+        body.theme-p5 section#skills,
+        body.theme-p5 section#projects,
+        body.theme-p5 section#experience,
+        body.theme-p5 section#contact {
+            background-color: rgba(13, 0, 0, 0.94) !important;
+            border-color: #ff0033 !important;
+        }
+
+        body.theme-p4 section#hero .hero-bg-overlay {
+            background: transparent !important;
+            opacity: 1 !important;
+        }
+
+        body.theme-p5 section#hero .hero-bg-overlay {
+            background: radial-gradient(circle at 75% 30%, rgba(100, 0, 0, 0.5) 0%, rgba(10, 0, 0, 0.98) 80%) !important;
+            opacity: 1 !important;
+        }
+
+        body.theme-p4 footer {
+            background-color: #111111 !important;
+            color: #ffea00 !important;
+            border-color: #ffea00 !important;
+        }
+
+        body.theme-p5 footer {
+            background-color: #000000 !important;
+            color: #ffffff !important;
+            border-color: #ff0033 !important;
+        }
+
         /* Ambient Glass Canvas */
         #p3-bg-canvas {
             position: fixed;
@@ -53,6 +137,107 @@
             height: 100vh;
             z-index: 0;
             pointer-events: none;
+        }
+
+        /* Persona 5 Right-Side Diagonal Split Star Pattern Overlay */
+        .p5-right-split {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 55vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            overflow: hidden;
+            background: repeating-radial-gradient(circle at 60% 40%, #111111 0px, #111111 30px, #ff0033 30px, #ff0033 38px, #000000 38px, #000000 70px);
+            clip-path: polygon(30% 0%, 100% 0%, 100% 100%, 0% 100%);
+            mix-blend-mode: hard-light;
+        }
+
+        body.theme-p5 .p5-right-split {
+            opacity: 0.92;
+        }
+
+        .p5-star-comic-pattern {
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(#000000 22%, transparent 23%), radial-gradient(#ff0033 22%, transparent 23%);
+            background-size: 55px 55px;
+            background-position: 0 0, 27.5px 27.5px;
+            opacity: 0.28;
+        }
+
+        /* Persona 4 Sky Streak with Realistic Clouds */
+        .p4-sky-streak {
+            position: absolute;
+            top: 18%;
+            right: -20%;
+            width: 140%;
+            height: 52%;
+            background: linear-gradient(180deg, #0055cc 0%, #187ce6 35%, #50a2ff 70%, #8fc5ff 100%);
+            clip-path: polygon(0% 42%, 100% 24%, 100% 96%, 0% 62%);
+            transform: rotate(-10deg);
+            z-index: 2;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            box-shadow: 0px 10px 20px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .p4-sky-streak::before,
+        .p4-sky-streak::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 6px;
+            background: #ffffff;
+            left: 0;
+            z-index: 10;
+        }
+        .p4-sky-streak::before { top: 0; }
+        .p4-sky-streak::after { bottom: 0; }
+
+        body.theme-p4 .p4-sky-streak {
+            opacity: 1;
+        }
+
+        .sky-cloud-container {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .realistic-cloud-svg {
+            position: absolute;
+            pointer-events: none;
+        }
+
+        .tower-cloud-cluster {
+            right: 5%;
+            top: -5%;
+            width: 680px;
+            height: 480px;
+            animation: cloudDrift 35s ease-in-out infinite alternate;
+        }
+
+        @keyframes cloudDrift {
+            0% { transform: translate(0px, 0px) scale(1); }
+            50% { transform: translate(-12px, -6px) scale(1.02); }
+            100% { transform: translate(0px, 0px) scale(1); }
+        }
+
+        /* Dynamic Text Swaps */
+        body.theme-p4 .p4-dark-text {
+            color: #111111 !important;
+        }
+
+        body.theme-p5 h2, body.theme-p5 h3, body.theme-p5 h4, body.theme-p5 p, body.theme-p5 span, body.theme-p5 li {
+            color: #ffffff !important;
         }
 
         /* Fixed viewport container for side text overlay */
@@ -69,7 +254,6 @@
             overflow: hidden;
         }
 
-        /* Large Vertical Side Text with Parallax Transform Wrapper */
         .side-text {
             font-family: 'Oswald', sans-serif;
             font-size: 14vh;
@@ -87,7 +271,17 @@
             transition: transform 0.05s linear;
         }
 
-        /* GLOWING RED CRYSTAL SHARDS OVERLAY */
+        body.theme-p4 .side-text {
+            color: rgba(0, 0, 0, 0.85);
+            text-shadow: 6px -6px 0px rgba(255, 234, 0, 0.6), -4px 4px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        body.theme-p5 .side-text {
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 6px -6px 0px #000000, -4px 4px 0px #ff0033;
+        }
+
+        /* FLOATING SHARDS / FLOWERS / STARS FIELD */
         .shard-overlay-field {
             position: fixed;
             top: 0;
@@ -100,15 +294,38 @@
 
         .red-shard {
             position: absolute;
+            will-change: transform;
+            transition: all 0.4s ease;
+        }
+
+        .p3-shard-div {
             background: linear-gradient(135deg, #ff0055 0%, #ff1a53 50%, #ffffff 100%);
             clip-path: polygon(40% 0%, 100% 30%, 65% 100%, 0% 75%);
             filter: drop-shadow(0px 0px 8px #ff0055) drop-shadow(0px 0px 14px #ff1a53);
             opacity: 0.85;
-            will-change: transform;
-            transition: transform 0.08s linear;
+            width: 100%;
+            height: 100%;
+            display: block;
         }
 
-        /* Slanted background dividers */
+        .p4-flower-svg, .p5-floating-star {
+            display: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        body.theme-p4 .p3-shard-div { display: none !important; }
+        body.theme-p4 .p4-flower-svg { display: block !important; filter: drop-shadow(2px 4px 0px rgba(0,0,0,0.25)); }
+        body.theme-p4 .p5-floating-star { display: none !important; }
+
+        body.theme-p5 .p3-shard-div { display: none !important; }
+        body.theme-p5 .p4-flower-svg { display: none !important; }
+        body.theme-p5 .p5-floating-star { display: block !important; filter: drop-shadow(3px 3px 0px #000000); }
+
+        body:not(.theme-p4):not(.theme-p5) .p3-shard-div { display: block !important; }
+        body:not(.theme-p4):not(.theme-p5) .p4-flower-svg { display: none !important; }
+        body:not(.theme-p4):not(.theme-p5) .p5-floating-star { display: none !important; }
+
         .skew-angle {
             transform: skewY(-4deg);
         }
@@ -122,17 +339,14 @@
             width: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: #000c1e;
+            background: var(--bg-dark);
         }
         ::-webkit-scrollbar-thumb {
-            background: #0052cc;
+            background: var(--primary-accent);
             border-radius: 4px;
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #ff0055;
-        }
 
-        /* P3R Menu Item Effects */
+        /* Menu Items */
         .p3-menu-item {
             position: relative;
             transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -152,13 +366,50 @@
             display: inline-block;
         }
 
+        body.theme-p4 .p3-menu-item .menu-text {
+            color: #111111;
+            text-shadow: 2px 2px 0px #ffffff;
+        }
+
+        body.theme-p5 .p3-menu-item .menu-text {
+            color: #ffffff;
+            text-shadow: 2px 2px 0px #000000;
+        }
+
+        body.theme-p5 .p3-menu-item {
+            transform: skewX(-12deg) rotate(-2deg);
+        }
+
+        body.theme-p4 .p3-menu-item.sky-overlap .menu-text {
+            color: #ffea00 !important;
+            text-shadow: 3px 3px 0px #000000, -1px -1px 0px #000000, 1px -1px 0px #000000, -1px 1px 0px #000000 !important;
+        }
+
+        body.theme-p4 .p3-menu-item.sky-overlap .item-num {
+            color: #a6e22e !important;
+        }
+
         .p3-menu-item:hover {
             transform: skewX(-15deg) translateX(25px) scale(1.08);
         }
 
+        body.theme-p5 .p3-menu-item:hover {
+            transform: skewX(-12deg) rotate(-2deg) translateX(30px) scale(1.12);
+        }
+
         .p3-menu-item:hover .menu-text {
-            color: #ffffff;
-            text-shadow: 0 0 15px #0052cc, 4px 4px 0px #ff0055;
+            color: #ffffff !important;
+            text-shadow: 0 0 15px var(--primary-accent), 4px 4px 0px var(--secondary-accent) !important;
+        }
+
+        body.theme-p4 .p3-menu-item:hover .menu-text {
+            color: #00f0ff !important;
+            text-shadow: 0 0 15px #111111, 3px 3px 0px #000000 !important;
+        }
+
+        body.theme-p5 .p3-menu-item:hover .menu-text {
+            color: #ff0033 !important;
+            text-shadow: 0 0 15px #ff0033, 3px 3px 0px #000000 !important;
         }
 
         .p3-menu-item::before {
@@ -169,39 +420,104 @@
             transform: translateY(-50%) skewX(15deg);
             width: 0;
             height: 80%;
-            background: var(--p3-pink);
+            background: var(--secondary-accent);
             transition: width 0.2s ease;
             z-index: -1;
-            box-shadow: 0 0 12px var(--p3-pink);
+            box-shadow: 0 0 12px var(--secondary-accent);
+        }
+
+        body.theme-p4 .p3-menu-item::before {
+            background: #111111;
+            box-shadow: 0 0 12px #111111;
+        }
+
+        body.theme-p5 .p3-menu-item::before {
+            background: #000000;
+            box-shadow: 0 0 15px #ff0033;
+            transform: translateY(-50%) skewX(12deg) rotate(-3deg);
+            height: 100%;
+            border: 2px solid #ff0033;
         }
 
         .p3-menu-item:hover::before {
             width: calc(100% + 40px);
         }
 
-        /* P3R Dynamic Cards */
+        /* Dynamic Cards */
         .p3-card {
             background: linear-gradient(135deg, rgba(0, 43, 102, 0.85), rgba(0, 12, 30, 0.95));
-            border: 2px solid #0052cc;
-            box-shadow: 0 0 15px rgba(0, 82, 204, 0.2), inset 0 0 15px rgba(0, 82, 204, 0.1);
+            border: 2px solid var(--card-border);
+            box-shadow: 0 0 15px var(--text-glow), inset 0 0 15px var(--text-glow);
             position: relative;
             clip-path: polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
             transition: all 0.3s ease;
         }
 
+        body.theme-p4 .p3-card {
+            background: #111111 !important;
+            color: #ffffff !important;
+            border-color: #ffea00 !important;
+            box-shadow: 6px 6px 0px #a6e22e, 0 0 20px rgba(0, 0, 0, 0.4);
+        }
+
+        body.theme-p5 .p3-card {
+            background: #000000 !important;
+            color: #ffffff !important;
+            border: 3px solid #ff0033 !important;
+            box-shadow: 8px 8px 0px #ff0033, 0 0 25px rgba(255, 0, 51, 0.5) !important;
+            clip-path: polygon(0% 5%, 100% 0%, 95% 100%, 5% 95%);
+        }
+
+        body.theme-p4 .p3-card h3, body.theme-p4 .p3-card p, body.theme-p4 .p3-card span, body.theme-p4 .p3-card li {
+            color: #ffffff !important;
+        }
+
+        body.theme-p5 .p3-card h3, body.theme-p5 .p3-card p, body.theme-p5 .p3-card span, body.theme-p5 .p3-card li {
+            color: #ffffff !important;
+        }
+
+        body.theme-p4 .p3-card .p4-highlight-text {
+            color: #a6e22e !important;
+        }
+
+        body.theme-p5 .p3-card .p4-highlight-text {
+            color: #ff0033 !important;
+        }
+
         .p3-card:hover {
-            border-color: #ff0055;
-            box-shadow: 0 0 25px rgba(255, 0, 85, 0.4), inset 0 0 20px rgba(255, 0, 85, 0.2);
+            border-color: var(--secondary-accent);
+            box-shadow: 0 0 25px var(--secondary-accent), inset 0 0 20px var(--secondary-accent);
             transform: translateY(-5deg);
+        }
+
+        body.theme-p4 .p3-card:hover {
+            border-color: #00f0ff !important;
+            box-shadow: 8px 8px 0px #00f0ff, 0 0 25px rgba(255, 234, 0, 0.8) !important;
+        }
+
+        body.theme-p5 .p3-card:hover {
+            border-color: #ffffff !important;
+            box-shadow: 10px 10px 0px #ff0033, 0 0 30px rgba(255, 0, 51, 0.8) !important;
+            transform: translateY(-6px) rotate(1deg);
         }
 
         /* Status Gauge Bar */
         .p3-gauge-bg {
             background: rgba(0, 30, 70, 0.8);
-            border: 1px solid #0052cc;
+            border: 1px solid var(--primary-accent);
             height: 16px;
             transform: skewX(-12deg);
             overflow: hidden;
+        }
+
+        body.theme-p4 .p3-gauge-bg {
+            background: #222222;
+            border-color: #ffea00;
+        }
+
+        body.theme-p5 .p3-gauge-bg {
+            background: #1a0000;
+            border-color: #ff0033;
         }
 
         .p3-gauge-fill {
@@ -211,16 +527,32 @@
             transition: width 1.2s cubic-bezier(0.1, 0.5, 0.1, 1);
         }
 
+        body.theme-p4 .p3-gauge-fill {
+            background: linear-gradient(90deg, #a6e22e, #00f0ff);
+        }
+
+        body.theme-p5 .p3-gauge-fill {
+            background: linear-gradient(90deg, #ff0033, #ffffff);
+        }
+
         /* Custom Cutout Graphic Frame */
         .cutout-frame {
             border: 4px solid #ffffff;
-            box-shadow: 8px 8px 0px #0052cc, 16px 16px 0px rgba(0, 12, 30, 0.8);
+            box-shadow: 8px 8px 0px var(--primary-accent), 16px 16px 0px rgba(0, 12, 30, 0.8);
             transform: rotate(-2deg);
         }
 
-        /* =========================================================
-           P3R EQUIP TRIANGLE PERSONA BUTTON
-        ========================================================= */
+        body.theme-p4 .cutout-frame {
+            box-shadow: 8px 8px 0px #111111, 16px 16px 0px #a6e22e;
+        }
+
+        body.theme-p5 .cutout-frame {
+            border-color: #ff0033;
+            box-shadow: 8px 8px 0px #ff0033, 16px 16px 0px #000000;
+            transform: rotate(-3deg);
+        }
+
+        /* EQUIP TRIANGLE PERSONA BUTTON */
         .persona-btn-wrapper {
             position: relative;
             display: inline-flex;
@@ -234,11 +566,10 @@
             transform: scale(1.08) translateX(6px);
         }
 
-        /* RED TRIANGLE INDICATOR BADGE ON THE LEFT */
         .persona-btn-indicator {
             position: relative;
             z-index: 4;
-            background: #ff0055;
+            background: var(--secondary-accent);
             color: #ffffff;
             font-family: 'Oswald', sans-serif;
             font-size: 1.1rem;
@@ -246,13 +577,24 @@
             clip-path: polygon(0% 0%, 100% 0%, 75% 100%, 0% 100%);
             transform: skewX(-12deg);
             margin-right: -10px;
-            box-shadow: 0 0 10px rgba(255, 0, 85, 0.8);
+            box-shadow: 0 0 10px var(--secondary-accent);
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        /* ENLARGED OUTWARD PULSING/GLOWING SHAPE EFFECT */
+        body.theme-p4 .persona-btn-indicator {
+            background: #a6e22e;
+            color: #111111;
+            box-shadow: 0 0 10px #a6e22e;
+        }
+
+        body.theme-p5 .persona-btn-indicator {
+            background: #ff0033;
+            color: #ffffff;
+            box-shadow: 0 0 12px #ff0033;
+        }
+
         .persona-glow-pulse {
             position: absolute;
             top: -4px;
@@ -267,37 +609,40 @@
             animation: pulseOutwardGlow 2.2s infinite ease-in-out;
         }
 
-        @keyframes pulseOutwardGlow {
-            0% {
-                transform: skewX(-12deg) scale(0.96);
-                opacity: 0.85;
-                filter: drop-shadow(0 0 8px #ffffff) drop-shadow(0 0 18px rgba(0, 82, 204, 0.8));
-            }
-            50% {
-                transform: skewX(-12deg) scale(1.35);
-                opacity: 0;
-                filter: drop-shadow(0 0 25px #ffffff) drop-shadow(0 0 45px #0052cc);
-            }
-            100% {
-                transform: skewX(-12deg) scale(0.96);
-                opacity: 0;
-            }
+        body.theme-p4 .persona-glow-pulse {
+            background: rgba(0, 240, 255, 0.8);
         }
 
-        /* Offset Highlight Polygon Backdrop */
+        body.theme-p5 .persona-glow-pulse {
+            background: rgba(255, 0, 51, 0.8);
+        }
+
+        @keyframes pulseOutwardGlow {
+            0% { transform: skewX(-12deg) scale(0.96); opacity: 0.85; }
+            50% { transform: skewX(-12deg) scale(1.35); opacity: 0; }
+            100% { transform: skewX(-12deg) scale(0.96); opacity: 0; }
+        }
+
         .persona-btn-highlight {
             position: absolute;
             top: -6px;
             left: 10px;
             width: calc(100% - 5px);
             height: calc(100% + 12px);
-            background: linear-gradient(135deg, #ff0055, #ff1a53);
+            background: linear-gradient(135deg, var(--secondary-accent), var(--primary-accent));
             clip-path: polygon(15% 0%, 100% 18%, 85% 100%, 0% 82%);
             opacity: 0;
             transform: skewX(-12deg) scale(0.9);
             transition: all 0.25s ease;
             z-index: 1;
-            filter: drop-shadow(0 0 10px #ff0055);
+        }
+
+        body.theme-p4 .persona-btn-highlight {
+            background: linear-gradient(135deg, #a6e22e, #00f0ff);
+        }
+
+        body.theme-p5 .persona-btn-highlight {
+            background: linear-gradient(135deg, #ff0033, #000000);
         }
 
         .persona-btn-wrapper:hover .persona-btn-highlight {
@@ -305,7 +650,6 @@
             transform: skewX(-12deg) scale(1.05);
         }
 
-        /* Triangle Front Badge */
         .persona-btn-front {
             position: relative;
             z-index: 2;
@@ -321,23 +665,38 @@
             transition: all 0.2s ease;
         }
 
+        body.theme-p4 .persona-btn-front {
+            background: #111111;
+            color: #ffea00;
+            border: 2px solid #a6e22e;
+            box-shadow: 4px 4px 0px #000000;
+        }
+
+        body.theme-p5 .persona-btn-front {
+            background: #000000;
+            color: #ffffff;
+            border: 2px solid #ff0033;
+            box-shadow: 4px 4px 0px #ff0033;
+        }
+
         .persona-btn-front .btn-text {
             font-family: 'Oswald', sans-serif;
             font-weight: 900;
             font-size: 1.8rem;
             letter-spacing: 2px;
             line-height: 1;
-            text-shadow: none;
             color: #000c1e;
         }
 
-        .persona-btn-wrapper:hover .persona-btn-front .btn-text {
-            color: #ff0055;
+        body.theme-p4 .persona-btn-front .btn-text {
+            color: #ffea00;
         }
 
-        /* =========================================================
-           FULLSCREEN EXPANDING RIPPLE & EXPANDED MODAL
-        ========================================================= */
+        body.theme-p5 .persona-btn-front .btn-text {
+            color: #ffffff;
+        }
+
+        /* FULLSCREEN EXPANDING MODAL */
         #persona-overlay {
             position: fixed;
             inset: 0;
@@ -357,7 +716,6 @@
             opacity: 1;
         }
 
-        /* Ripple Center Rings */
         .ripple-ring {
             position: absolute;
             top: 50%;
@@ -369,35 +727,36 @@
             pointer-events: none;
         }
 
-        /* RING 1: INITIAL WHITE RING */
-        #persona-overlay.animating .ripple-ring-1 {
+        /* Default / P3 / P4 Ripple Ring Animation */
+        body:not(.theme-p5) #persona-overlay.animating .ripple-ring-1 {
             border: 16px solid #ffffff;
             box-shadow: 0 0 50px #ffffff;
             animation: expandRing 0.8s cubic-bezier(0.1, 0.8, 0.2, 1) forwards;
         }
-
-        /* RING 2: DARKER BLUE RING */
-        #persona-overlay.animating .ripple-ring-2 {
-            border: 12px solid #0052cc;
-            box-shadow: 0 0 40px #003899, inset 0 0 40px #003899;
+        body:not(.theme-p5) #persona-overlay.animating .ripple-ring-2 {
+            border: 12px solid var(--primary-accent);
+            box-shadow: 0 0 40px var(--primary-accent), inset 0 0 40px var(--primary-accent);
             animation: expandRing 0.8s cubic-bezier(0.1, 0.8, 0.2, 1) 0.12s forwards;
         }
 
-        @keyframes expandRing {
-            0% {
-                transform: translate(-50%, -50%) scale(0);
-                opacity: 1;
-            }
-            80% {
-                opacity: 0.9;
-            }
-            100% {
-                transform: translate(-50%, -50%) scale(160);
-                opacity: 0;
-            }
+        /* P5 Theme Glowing Blue Flames Transition */
+        body.theme-p5 #persona-overlay.animating .ripple-ring-1 {
+            border: 18px solid #00f0ff;
+            box-shadow: 0 0 70px #00f0ff, inset 0 0 50px #0055ff;
+            animation: expandRing 0.85s cubic-bezier(0.1, 0.8, 0.2, 1) forwards;
+        }
+        body.theme-p5 #persona-overlay.animating .ripple-ring-2 {
+            border: 14px solid #73edff;
+            box-shadow: 0 0 90px #00aaff, inset 0 0 70px #00f0ff;
+            animation: expandRing 0.85s cubic-bezier(0.1, 0.8, 0.2, 1) 0.15s forwards;
         }
 
-        /* Modal Blurred Backdrop */
+        @keyframes expandRing {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+            80% { opacity: 0.9; }
+            100% { transform: translate(-50%, -50%) scale(160); opacity: 0; }
+        }
+
         .modal-backdrop {
             position: fixed;
             inset: 0;
@@ -407,19 +766,26 @@
             transition: opacity 0.4s ease 0.3s;
         }
 
+        body.theme-p4 .modal-backdrop {
+            background: rgba(255, 215, 0, 0.92);
+        }
+
+        body.theme-p5 .modal-backdrop {
+            background: rgba(77, 0, 0, 0.96);
+        }
+
         #persona-overlay.active .modal-backdrop {
             opacity: 1;
         }
 
-        /* Expanded Modal Box Styling */
         .modal-content-box {
             position: relative;
             z-index: 10;
             width: 95%;
             max-width: 1150px;
             background: linear-gradient(135deg, rgba(0, 20, 50, 0.96), rgba(0, 8, 20, 0.98));
-            border: 3px solid #0052cc;
-            box-shadow: 0 0 45px rgba(0, 82, 204, 0.35), inset 0 0 35px rgba(0, 82, 204, 0.18);
+            border: 3px solid var(--primary-accent);
+            box-shadow: 0 0 45px var(--text-glow), inset 0 0 35px var(--text-glow);
             padding: 2.5rem;
             transform: scale(0.85) skewX(-2deg);
             opacity: 0;
@@ -427,17 +793,30 @@
             margin: auto;
         }
 
+        body.theme-p4 .modal-content-box {
+            background: #111111;
+            border-color: #a6e22e;
+            color: #ffffff;
+            box-shadow: 10px 10px 0px #00f0ff, 0 0 40px rgba(0,0,0,0.8);
+        }
+
+        body.theme-p5 .modal-content-box {
+            background: #000000;
+            border-color: #ff0033;
+            color: #ffffff;
+            box-shadow: 10px 10px 0px #ff0033, 0 0 40px rgba(255, 0, 51, 0.8);
+        }
+
         #persona-overlay.active .modal-content-box {
             transform: scale(1) skewX(0deg);
             opacity: 1;
         }
 
-        /* Interactive Interest Item Styling */
         .interest-item {
             position: relative;
             padding: 14px 20px;
             background: rgba(0, 43, 102, 0.5);
-            border-left: 5px solid #0052cc;
+            border-left: 5px solid var(--primary-accent);
             cursor: pointer;
             transition: all 0.2s ease;
             font-family: 'Oswald', sans-serif;
@@ -451,19 +830,43 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        .interest-item:hover, .interest-item.active-interest {
-            background: #0052cc;
+        body.theme-p4 .interest-item {
+            background: #222222;
             color: #ffffff;
-            border-left-color: #ff0055;
-            transform: translateX(10px);
-            box-shadow: 0 0 15px rgba(0, 82, 204, 0.5);
+            border-left-color: #a6e22e;
         }
 
-        /* Side Info Display Box with Dynamic Square Image Display */
+        body.theme-p5 .interest-item {
+            background: #1a0000;
+            color: #ffffff;
+            border-left-color: #ff0033;
+        }
+
+        .interest-item:hover, .interest-item.active-interest {
+            background: var(--primary-accent);
+            color: #ffffff;
+            border-left-color: var(--secondary-accent);
+            transform: translateX(10px);
+            box-shadow: 0 0 15px var(--text-glow);
+        }
+
+        body.theme-p4 .interest-item:hover, body.theme-p4 .interest-item.active-interest {
+            background: #a6e22e;
+            color: #111111;
+            border-left-color: #00f0ff;
+        }
+
+        body.theme-p5 .interest-item:hover, body.theme-p5 .interest-item.active-interest {
+            background: #ff0033;
+            color: #ffffff;
+            border-left-color: #ffffff;
+            box-shadow: 0 0 20px #ff0033;
+        }
+
         .side-info-card {
             background: rgba(0, 15, 38, 0.95);
-            border: 2px solid #ff0055;
-            box-shadow: 0 0 25px rgba(255, 0, 85, 0.25);
+            border: 2px solid var(--secondary-accent);
+            box-shadow: 0 0 25px var(--text-glow);
             padding: 1.5rem;
             position: relative;
             clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
@@ -472,11 +875,23 @@
             gap: 1rem;
         }
 
+        body.theme-p4 .side-info-card {
+            background: #111111;
+            border-color: #a6e22e;
+            color: #ffffff;
+        }
+
+        body.theme-p5 .side-info-card {
+            background: #000000;
+            border-color: #ff0033;
+            color: #ffffff;
+        }
+
         .side-info-badge {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: #0052cc;
+            background: var(--primary-accent);
             color: #ffffff;
             font-family: 'Oswald', sans-serif;
             font-weight: 700;
@@ -487,20 +902,39 @@
             letter-spacing: 1px;
         }
 
-        /* Square (1:1) Image Frame in Persona Modal */
+        body.theme-p4 .side-info-badge {
+            background: #a6e22e;
+            color: #111111;
+        }
+
+        body.theme-p5 .side-info-badge {
+            background: #ff0033;
+            color: #ffffff;
+        }
+
         .interest-img-frame {
             position: relative;
             width: 100%;
             aspect-ratio: 1 / 1;
             max-height: 400px;
-            border: 3px solid #0052cc;
+            border: 3px solid var(--primary-accent);
             background-color: #000814;
             overflow: hidden;
-            box-shadow: 0 0 20px rgba(0, 82, 204, 0.35);
+            box-shadow: 0 0 20px var(--text-glow);
             clip-path: polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+
+        body.theme-p4 .interest-img-frame {
+            border-color: #a6e22e;
+            background-color: #000000;
+        }
+
+        body.theme-p5 .interest-img-frame {
+            border-color: #ff0033;
+            background-color: #000000;
         }
 
         .interest-img-frame img {
@@ -509,12 +943,152 @@
             object-fit: contain;
             transition: opacity 0.3s ease;
         }
+
+        /* Transition Overlays */
+        #p4-transition-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 9999;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        #p4-transition-overlay.animating {
+            display: block !important;
+        }
+
+        .wipe-bar {
+            position: absolute;
+            top: -15vh;
+            height: 130vh;
+            transform: translateX(-200vw) skewX(-20deg);
+            will-change: transform;
+        }
+        .wipe-bar:nth-child(1) { left: -10vw; width: 25vw; background: #ffea00; }
+        .wipe-bar:nth-child(2) { left: 10vw; width: 20vw; background: #111111; }
+        .wipe-bar:nth-child(3) { left: 25vw; width: 30vw; background: #a6e22e; }
+        .wipe-bar:nth-child(4) { left: 50vw; width: 22vw; background: #ff9900; }
+        .wipe-bar:nth-child(5) { left: 68vw; width: 25vw; background: #00f0ff; }
+        .wipe-bar:nth-child(6) { left: 88vw; width: 28vw; background: #111111; }
+        .wipe-bar:nth-child(7) { left: 110vw; width: 22vw; background: #ffea00; }
+
+        #p4-transition-overlay.animating.p3-to-p4 .wipe-bar {
+            animation: wipeSweep 0.9s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+        }
+        #p4-transition-overlay.animating.p3-to-p4 .wipe-bar:nth-child(1) { animation-delay: 0.00s; }
+        #p4-transition-overlay.animating.p3-to-p4 .wipe-bar:nth-child(2) { animation-delay: 0.04s; }
+        #p4-transition-overlay.animating.p3-to-p4 .wipe-bar:nth-child(3) { animation-delay: 0.08s; }
+        #p4-transition-overlay.animating.p3-to-p4 .wipe-bar:nth-child(4) { animation-delay: 0.12s; }
+        #p4-transition-overlay.animating.p3-to-p4 .wipe-bar:nth-child(5) { animation-delay: 0.16s; }
+        #p4-transition-overlay.animating.p3-to-p4 .wipe-bar:nth-child(6) { animation-delay: 0.20s; }
+        #p4-transition-overlay.animating.p3-to-p4 .wipe-bar:nth-child(7) { animation-delay: 0.24s; }
+
+        @keyframes wipeSweep {
+            0% { transform: translateX(-200vw) skewX(-20deg); }
+            50% { transform: translateX(0vw) skewX(-20deg); }
+            100% { transform: translateX(200vw) skewX(-20deg); }
+        }
+
+        .p5-arrow-stripe {
+            position: absolute;
+            top: -20vh;
+            height: 140vh;
+            transform: translateX(-220vw) skewX(-30deg);
+            will-change: transform;
+        }
+        .p5-arrow-stripe:nth-child(8)  { left: -15vw; width: 28vw; background: #000000; }
+        .p5-arrow-stripe:nth-child(9)  { left: 12vw; width: 22vw; background: #ff0033; }
+        .p5-arrow-stripe:nth-child(10) { left: 32vw; width: 32vw; background: #ffffff; }
+        .p5-arrow-stripe:nth-child(11) { left: 60vw; width: 25vw; background: #000000; }
+        .p5-arrow-stripe:nth-child(12) { left: 82vw; width: 30vw; background: #ff0033; }
+
+        .p5-stripe-arrow {
+            position: absolute;
+            right: -60px;
+            top: 50%;
+            transform: translateY(-50%) skewX(30deg);
+            width: 0;
+            height: 0;
+            border-top: 40px solid transparent;
+            border-bottom: 40px solid transparent;
+        }
+        .p5-arrow-stripe:nth-child(8) .p5-stripe-arrow  { border-left: 60px solid #000000; }
+        .p5-arrow-stripe:nth-child(9) .p5-stripe-arrow  { border-left: 60px solid #ff0033; }
+        .p5-arrow-stripe:nth-child(10) .p5-stripe-arrow { border-left: 60px solid #ffffff; }
+        .p5-arrow-stripe:nth-child(11) .p5-stripe-arrow { border-left: 60px solid #000000; }
+        .p5-arrow-stripe:nth-child(12) .p5-stripe-arrow { border-left: 60px solid #ff0033; }
+
+        #p4-transition-overlay.animating.p4-to-p5 .p5-arrow-stripe {
+            animation: p5ArrowSweep 0.85s cubic-bezier(0.8, 0, 0.2, 1) forwards;
+        }
+        #p4-transition-overlay.animating.p4-to-p5 .p5-arrow-stripe:nth-child(8)  { animation-delay: 0.00s; }
+        #p4-transition-overlay.animating.p4-to-p5 .p5-arrow-stripe:nth-child(9)  { animation-delay: 0.05s; }
+        #p4-transition-overlay.animating.p4-to-p5 .p5-arrow-stripe:nth-child(10) { animation-delay: 0.10s; }
+        #p4-transition-overlay.animating.p4-to-p5 .p5-arrow-stripe:nth-child(11) { animation-delay: 0.15s; }
+        #p4-transition-overlay.animating.p4-to-p5 .p5-arrow-stripe:nth-child(12) { animation-delay: 0.20s; }
+
+        @keyframes p5ArrowSweep {
+            0% { transform: translateX(-220vw) skewX(-30deg); }
+            50% { transform: translateX(0vw) skewX(-30deg); }
+            100% { transform: translateX(220vw) skewX(-30deg); }
+        }
+
+        .p3-wave-panel {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(90deg, #1a0000 0%, #b30000 50%, #0052cc 100%);
+            transform: translateX(-100vw);
+            will-change: transform;
+            opacity: 0.95;
+            box-shadow: 0 0 50px #ff0033;
+        }
+
+        .p3-ripple-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            border: 4px solid #ffffff;
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            pointer-events: none;
+            box-shadow: 0 0 30px #ff0033, inset 0 0 30px #b30000;
+        }
+
+        #p4-transition-overlay.animating.p5-to-p3 .p3-wave-panel {
+            animation: redWaveSweep 0.9s cubic-bezier(0.6, 0, 0.2, 1) forwards;
+        }
+        #p4-transition-overlay.animating.p5-to-p3 .p3-ripple-circle {
+            animation: rippleExpand 0.9s ease-out forwards;
+        }
+
+        @keyframes redWaveSweep {
+            0% { transform: translateX(-100vw); }
+            50% { transform: translateX(0vw); }
+            100% { transform: translateX(100vw); }
+        }
+
+        @keyframes rippleExpand {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(15); opacity: 0; }
+        }
     </style>
 </head>
 <body class="relative">
 
     <!-- Background Canvas for Water Bubbles -->
     <canvas id="p3-bg-canvas"></canvas>
+
+    <!-- Persona 5 Right-Side Diagonal Star Split Background Pattern -->
+    <div class="p5-right-split">
+        <div class="p5-star-comic-pattern"></div>
+    </div>
 
     <!-- Side Running Big Typography with Parallax Scroll -->
     <div class="side-text-container hidden sm:flex">
@@ -523,14 +1097,78 @@
         </div>
     </div>
 
-    <!-- Glowing Red Crystal Shards Floating Overlay -->
+    <!-- Floating Overlay Shapes -->
     <div class="shard-overlay-field">
-        <div class="red-shard parallax-shard" data-speed="0.12" style="width: 22px; height: 38px; top: 15%; left: 18%; transform: rotate(-25deg);"></div>
-        <div class="red-shard parallax-shard" data-speed="0.25" style="width: 16px; height: 28px; top: 25%; left: 82%; transform: rotate(18deg);"></div>
-        <div class="red-shard parallax-shard" data-speed="0.08" style="width: 28px; height: 46px; top: 42%; left: 12%; transform: rotate(-35deg);"></div>
-        <div class="red-shard parallax-shard" data-speed="0.20" style="width: 18px; height: 32px; top: 58%; left: 88%; transform: rotate(30deg);"></div>
-        <div class="red-shard parallax-shard" data-speed="0.15" style="width: 24px; height: 40px; top: 72%; left: 20%; transform: rotate(-15deg);"></div>
-        <div class="red-shard parallax-shard" data-speed="0.28" style="width: 15px; height: 25px; top: 86%; left: 80%; transform: rotate(45deg);"></div>
+        <div class="red-shard parallax-shard" data-speed="0.12" style="width: 75px; height: 75px; top: 75%; left: 6%; transform: rotate(-15deg);">
+            <div class="p3-shard-div"></div>
+            <svg class="p4-flower-svg" viewBox="0 0 100 100">
+                <g fill="#ffffff">
+                    <path d="M50 50 C46 36 38 12 50 12 C62 12 54 36 50 50 Z"/>
+                    <path d="M50 50 C62 42 83 28 89 38 C95 48 70 58 50 50 Z"/>
+                    <path d="M50 50 C62 58 83 72 77 82 C71 92 58 64 50 50 Z"/>
+                    <path d="M50 50 C54 64 62 88 50 88 C38 88 46 64 50 50 Z"/>
+                    <path d="M50 50 C38 58 17 72 11 62 C5 52 30 42 50 50 Z"/>
+                    <path d="M50 50 C38 42 17 28 23 18 C29 8 42 36 50 50 Z"/>
+                </g>
+            </svg>
+            <svg class="p5-floating-star" viewBox="0 0 100 100">
+                <polygon fill="#ffffff" stroke="#000000" stroke-width="6" points="50,5 61,35 93,35 67,55 77,85 50,68 23,85 33,55 7,35 39,35"/>
+            </svg>
+        </div>
+
+        <div class="red-shard parallax-shard" data-speed="0.22" style="width: 105px; height: 105px; top: 70%; right: 8%; transform: rotate(20deg);">
+            <div class="p3-shard-div"></div>
+            <svg class="p4-flower-svg" viewBox="0 0 100 100">
+                <g fill="#ffea00">
+                    <path d="M50 50 C46 36 38 12 50 12 C62 12 54 36 50 50 Z"/>
+                    <path d="M50 50 C62 42 83 28 89 38 C95 48 70 58 50 50 Z"/>
+                    <path d="M50 50 C62 58 83 72 77 82 C71 92 58 64 50 50 Z"/>
+                    <path d="M50 50 C54 64 62 88 50 88 C38 88 46 64 50 50 Z"/>
+                    <path d="M50 50 C38 58 17 72 11 62 C5 52 30 42 50 50 Z"/>
+                    <path d="M50 50 C38 42 17 28 23 18 C29 8 42 36 50 50 Z"/>
+                </g>
+            </svg>
+            <svg class="p5-floating-star" viewBox="0 0 100 100">
+                <polygon fill="#000000" stroke="#ffffff" stroke-width="6" points="50,5 61,35 93,35 67,55 77,85 50,68 23,85 33,55 7,35 39,35"/>
+            </svg>
+        </div>
+
+        <div class="red-shard parallax-shard" data-speed="0.18" style="width: 60px; height: 60px; top: 18%; left: 14%; transform: rotate(45deg);">
+            <div class="p3-shard-div"></div>
+            <svg class="p4-flower-svg" viewBox="0 0 100 100">
+                <g fill="#a6e22e">
+                    <path d="M50 50 C46 36 38 12 50 12 C62 12 54 36 50 50 Z"/>
+                    <path d="M50 50 C62 42 83 28 89 38 C95 48 70 58 50 50 Z"/>
+                    <path d="M50 50 C62 58 83 72 77 82 C71 92 58 64 50 50 Z"/>
+                    <path d="M50 50 C54 64 62 88 50 88 C38 88 46 64 50 50 Z"/>
+                    <path d="M50 50 C38 58 17 72 11 62 C5 52 30 42 50 50 Z"/>
+                    <path d="M50 50 C38 42 17 28 23 18 C29 8 42 36 50 50 Z"/>
+                </g>
+            </svg>
+            <svg class="p5-floating-star" viewBox="0 0 100 100">
+                <polygon fill="#ffffff" stroke="#000000" stroke-width="6" points="50,5 61,35 93,35 67,55 77,85 50,68 23,85 33,55 7,35 39,35"/>
+            </svg>
+        </div>
+    </div>
+
+    <!-- Multi-Theme Transition Overlay Container -->
+    <div id="p4-transition-overlay">
+        <div class="wipe-bar"></div>
+        <div class="wipe-bar"></div>
+        <div class="wipe-bar"></div>
+        <div class="wipe-bar"></div>
+        <div class="wipe-bar"></div>
+        <div class="wipe-bar"></div>
+        <div class="wipe-bar"></div>
+
+        <div class="p5-arrow-stripe"><div class="p5-stripe-arrow"></div></div>
+        <div class="p5-arrow-stripe"><div class="p5-stripe-arrow"></div></div>
+        <div class="p5-arrow-stripe"><div class="p5-stripe-arrow"></div></div>
+        <div class="p5-arrow-stripe"><div class="p5-stripe-arrow"></div></div>
+        <div class="p5-arrow-stripe"><div class="p5-stripe-arrow"></div></div>
+
+        <div class="p3-wave-panel"></div>
+        <div class="p3-ripple-circle"></div>
     </div>
 
     <!-- Top Navigation Bar -->
@@ -539,19 +1177,45 @@
             <i class="fa-solid fa-water text-[#0052cc] animate-pulse"></i>
             <span class="font-p3 text-xl tracking-wider text-white">ETHAN NGO // <span class="text-[#0072ff]">UTA CS '28</span></span>
         </div>
+
+        <button id="theme-toggle-btn" class="pointer-events-auto flex items-center gap-2 bg-yellow-400 text-black border-2 border-black px-4 py-2 font-p3 text-base font-bold -skew-x-12 shadow-[4px_4px_0px_#000000] hover:scale-105 transition-all cursor-pointer">
+            <i class="fa-solid fa-sun"></i>
+            <span id="theme-btn-label">CLICK ME</span>
+        </button>
     </header>
 
     <!-- HERO SECTION -->
     <section id="hero" class="relative min-h-screen w-full flex items-center justify-center overflow-hidden pt-20 pb-12 z-10">
         
-        <div class="absolute inset-0 bg-gradient-to-br from-[#000c1e] via-[#002b66] to-[#00040d] opacity-90 -z-10"></div>
-        <div class="absolute -left-20 top-0 w-1/2 h-full bg-[#0052cc]/10 -skew-x-12 pointer-events-none"></div>
+        <div class="hero-bg-overlay absolute inset-0 bg-gradient-to-br from-[#000c1e] via-[#002b66] to-[#00040d] opacity-90 z-0 transition-all duration-500"></div>
+        <div class="absolute -left-20 top-0 w-1/2 h-full bg-[#0052cc]/10 -skew-x-12 pointer-events-none z-0"></div>
 
-        <div class="container mx-auto px-6 max-w-7xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <!-- Persona 4 Sky Streak Container -->
+        <div class="p4-sky-streak">
+            <div class="sky-cloud-container">
+                <svg class="realistic-cloud-svg tower-cloud-cluster" viewBox="0 0 700 500">
+                    <defs>
+                        <linearGradient id="deepCloudShadow" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stop-color="#9dc2ec"/>
+                            <stop offset="60%" stop-color="#548bc8"/>
+                            <stop offset="100%" stop-color="#3b699e"/>
+                        </linearGradient>
+                        <linearGradient id="cloudBodyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stop-color="#ffffff"/>
+                            <stop offset="45%" stop-color="#ebf4ff"/>
+                            <stop offset="80%" stop-color="#bcd7f7"/>
+                            <stop offset="100%" stop-color="#7da8dc"/>
+                        </linearGradient>
+                    </defs>
+                    <path fill="url(#deepCloudShadow)" opacity="0.85" d="M 120 410 C 70 380, 50 330, 85 270 C 45 220, 95 160, 175 145 C 165 85, 235 30, 335 35 C 375 15, 435 10, 480 30 C 560 30, 620 90, 635 160 C 685 190, 715 250, 665 315 C 700 370, 630 420, 540 415 C 430 420, 240 430, 120 410 Z"/>
+                    <path fill="url(#cloudBodyGrad)" d="M 135 390 C 90 360, 65 310, 95 255 C 60 205, 110 150, 185 140 C 175 80, 245 25, 340 30 C 380 12, 440 10, 485 28 C 560 28, 615 85, 625 150 C 675 180, 700 235, 655 295 C 685 350, 615 400, 525 395 C 420 400, 235 410, 135 390 Z"/>
+                </svg>
+            </div>
+        </div>
+
+        <div class="container mx-auto px-6 max-w-7xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
             
-            <!-- Left Side: Status Widget & Suit Character Graphic -->
             <div class="lg:col-span-5 flex flex-col items-start gap-6 relative">
-                
                 <div class="bg-white text-black p-4 w-72 shadow-[8px_8px_0px_#0052cc] -skew-x-6 border-2 border-black transform transition hover:rotate-1">
                     <div class="flex justify-between items-center border-b-2 border-black pb-1 mb-2">
                         <span class="font-p3 text-xs tracking-widest text-gray-600">SYSTEM // HELLO</span>
@@ -564,65 +1228,61 @@
                 </div>
 
                 <div class="relative w-full max-w-md h-80 sm:h-96 rounded-none border-4 border-white shadow-[12px_12px_0px_#002b66] overflow-hidden -skew-x-3 bg-gradient-to-b from-[#0052cc]/20 to-[#000c1e]">
-                    <img src="suit.jpg" 
-                         alt="Ethan Ngo in Suit" 
-                         class="w-full h-full object-cover object-top contrast-110 saturate-110 brightness-95">
-
+                    <img src="suit.jpg" alt="Ethan Ngo in Suit" class="w-full h-full object-cover object-top contrast-110 saturate-110 brightness-95">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent"></div>
-
                     <div class="absolute bottom-4 left-4 right-4 bg-black/80 backdrop-blur-md p-3 border-l-4 border-[#ff0055]">
-                        <h2 class="font-p3 text-2xl text-white tracking-wide">ETHAN ALEXANDER NGO</h2>
-                        <p class="text-xs text-[#73edff] tracking-wider uppercase">UT Arlington • Expected Grad May 2028</p>
+                        <h2 class="font-p3 text-2xl text-white tracking-wide">ETHAN NGO</h2>
+                        <p class="text-xs text-[#73edff] tracking-wider uppercase">UT Arlington</p>
                     </div>
                 </div>
 
-                <div class="flex items-center gap-2 text-xs text-sky-300/80 font-mono">
+                <div class="flex items-center gap-2 text-xs font-mono p4-dark-text">
                     <i class="fa-solid fa-gamepad text-[#ff0055]"></i>
                     <span>SELECT A COMMAND TO NAVIGATE</span>
                 </div>
             </div>
 
-            <!-- Right Side: Angled Main Menu Buttons -->
+            <!-- Right Side: Main Menu Buttons -->
             <div class="lg:col-span-7 flex flex-col justify-center gap-3 pl-0 lg:pl-10">
                 <nav class="flex flex-col gap-2">
                     
-                    <a href="#about" class="p3-menu-item group py-2 px-6">
+                    <a href="#about" class="p3-menu-item sky-overlap group py-2 px-6">
                         <div class="flex items-center gap-4">
-                            <span class="font-p3 text-lg text-[#ff0055] group-hover:text-yellow-300">01</span>
+                            <span class="font-p3 text-lg text-[#ff0055] group-hover:text-yellow-300 item-num">01</span>
                             <span class="menu-text">ABOUT ME</span>
-                            <span class="text-xs font-mono text-[#73edff] opacity-0 group-hover:opacity-100 transition-opacity ml-auto uppercase">[Status & Bio]</span>
+                            <span class="text-xs font-mono opacity-0 group-hover:opacity-100 transition-opacity ml-auto uppercase p4-dark-text">[Status & Bio]</span>
                         </div>
                     </a>
 
-                    <a href="#skills" class="p3-menu-item group py-2 px-6">
+                    <a href="#skills" class="p3-menu-item sky-overlap group py-2 px-6">
                         <div class="flex items-center gap-4">
-                            <span class="font-p3 text-lg text-[#ff0055] group-hover:text-yellow-300">02</span>
+                            <span class="font-p3 text-lg text-[#ff0055] group-hover:text-yellow-300 item-num">02</span>
                             <span class="menu-text">SKILLS</span>
-                            <span class="text-xs font-mono text-[#73edff] opacity-0 group-hover:opacity-100 transition-opacity ml-auto uppercase">[Personal Stack]</span>
+                            <span class="text-xs font-mono opacity-0 group-hover:opacity-100 transition-opacity ml-auto uppercase p4-dark-text">[Personal Stack]</span>
                         </div>
                     </a>
 
-                    <a href="#projects" class="p3-menu-item group py-2 px-6">
+                    <a href="#projects" class="p3-menu-item sky-overlap group py-2 px-6">
                         <div class="flex items-center gap-4">
-                            <span class="font-p3 text-lg text-[#ff0055] group-hover:text-yellow-300">03</span>
+                            <span class="font-p3 text-lg text-[#ff0055] group-hover:text-yellow-300 item-num">03</span>
                             <span class="menu-text">PROJECTS</span>
-                            <span class="text-xs font-mono text-[#73edff] opacity-0 group-hover:opacity-100 transition-opacity ml-auto uppercase">[MavMarket, Alarm, Portfolio]</span>
+                            <span class="text-xs font-mono opacity-0 group-hover:opacity-100 transition-opacity ml-auto uppercase p4-dark-text">[MavMarket, Alarm, Portfolio]</span>
                         </div>
                     </a>
 
                     <a href="#experience" class="p3-menu-item group py-2 px-6">
                         <div class="flex items-center gap-4">
-                            <span class="font-p3 text-lg text-[#ff0055] group-hover:text-yellow-300">04</span>
+                            <span class="font-p3 text-lg text-[#ff0055] group-hover:text-yellow-300 item-num">04</span>
                             <span class="menu-text">EXPERIENCE</span>
-                            <span class="text-xs font-mono text-[#73edff] opacity-0 group-hover:opacity-100 transition-opacity ml-auto uppercase">[SASE Leadership]</span>
+                            <span class="text-xs font-mono opacity-0 group-hover:opacity-100 transition-opacity ml-auto uppercase p4-dark-text">[SASE Leadership]</span>
                         </div>
                     </a>
 
                     <a href="#contact" class="p3-menu-item group py-2 px-6">
                         <div class="flex items-center gap-4">
-                            <span class="font-p3 text-lg text-[#ff0055] group-hover:text-yellow-300">05</span>
+                            <span class="font-p3 text-lg text-[#ff0055] group-hover:text-yellow-300 item-num">05</span>
                             <span class="menu-text">SYSTEM // CONTACT</span>
-                            <span class="text-xs font-mono text-[#73edff] opacity-0 group-hover:opacity-100 transition-opacity ml-auto uppercase">[Direct Links]</span>
+                            <span class="text-xs font-mono opacity-0 group-hover:opacity-100 transition-opacity ml-auto uppercase p4-dark-text">[Direct Links]</span>
                         </div>
                     </a>
 
@@ -635,37 +1295,29 @@
     <!-- SECTION 1: ABOUT ME -->
     <section id="about" class="relative py-24 bg-[#001229] border-t-4 border-[#0052cc] skew-angle z-10">
         <div class="container mx-auto px-6 max-w-6xl unskew">
-            
             <div class="flex items-center justify-between gap-4 mb-12 flex-wrap">
                 <div class="flex items-center gap-4 flex-1">
-                    <h2 class="font-p3 text-5xl font-black tracking-wider text-white">
-                        01 // <span class="text-[#73edff]">ABOUT ME</span>
-                    </h2>
+                    <h2 class="font-p3 text-5xl font-black tracking-wider text-white p4-dark-text">01 // ABOUT ME</h2>
                     <div class="h-1 flex-1 bg-gradient-to-r from-[#0052cc] to-transparent"></div>
                 </div>
 
-                <!-- PERSONA TRIANGLE BUTTON -->
                 <div id="persona-trigger-btn" class="persona-btn-wrapper my-2 sm:my-0">
                     <div class="persona-btn-indicator">
-                        <i class="fa-solid fa-play text-sm text-white transform rotate-0"></i>
+                        <i class="fa-solid fa-play text-sm"></i>
                     </div>
                     <div class="persona-glow-pulse"></div>
                     <div class="persona-btn-highlight"></div>
                     <div class="persona-btn-front">
-                        <i class="fa-solid fa-mask text-2xl text-[#ff0055]"></i>
+                        <i class="fa-solid fa-mask text-2xl text-[#ff0055] p4-highlight-text"></i>
                         <span class="btn-text">PERSONA</span>
                     </div>
                 </div>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-                
                 <div class="lg:col-span-5 flex justify-center">
                     <div class="relative w-72 h-80 sm:w-80 sm:h-96 cutout-frame bg-[#002b66] overflow-hidden group">
-                        <img src="polo.jpg" 
-                             alt="Ethan Ngo White Polo" 
-                             class="w-full h-full object-cover object-top transition-all duration-500">
-                        
+                        <img src="polo.jpg" alt="Ethan Ngo White Polo" class="w-full h-full object-cover object-top transition-all duration-500">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                         <div class="absolute bottom-3 left-3 text-white">
                             <p class="font-p3 text-xl text-[#73edff]">ETHAN NGO</p>
@@ -676,7 +1328,7 @@
 
                 <div class="lg:col-span-7 flex flex-col gap-6">
                     <div class="p3-card p-6">
-                        <h3 class="font-p3 text-2xl text-[#73edff] mb-2 flex items-center gap-2">
+                        <h3 class="font-p3 text-2xl text-[#73edff] mb-2 flex items-center gap-2 p4-highlight-text">
                             <i class="fa-solid fa-user-gear text-[#ff0055]"></i> ACADEMIC PROFILE
                         </h3>
                         <p class="text-gray-200 text-sm sm:text-base leading-relaxed">
@@ -688,7 +1340,7 @@
                         <h3 class="font-p3 text-2xl text-white mb-2">PARAMETRIC STATS</h3>
 
                         <div>
-                            <div class="flex justify-between text-xs font-p3 tracking-widest text-[#73edff] mb-1">
+                            <div class="flex justify-between text-xs font-p3 tracking-widest text-[#73edff] mb-1 p4-highlight-text">
                                 <span>ACADEMIC PERFORMANCE (GPA)</span>
                                 <span>3.706 / 4.00</span>
                             </div>
@@ -698,7 +1350,7 @@
                         </div>
 
                         <div>
-                            <div class="flex justify-between text-xs font-p3 tracking-widest text-[#73edff] mb-1">
+                            <div class="flex justify-between text-xs font-p3 tracking-widest text-[#73edff] mb-1 p4-highlight-text">
                                 <span>HARDWARE & C SYSTEMS</span>
                                 <span>ADVANCED</span>
                             </div>
@@ -708,7 +1360,7 @@
                         </div>
 
                         <div>
-                            <div class="flex justify-between text-xs font-p3 tracking-widest text-[#73edff] mb-1">
+                            <div class="flex justify-between text-xs font-p3 tracking-widest text-[#73edff] mb-1 p4-highlight-text">
                                 <span>JAVA & OOP DESIGN</span>
                                 <span>ADVANCED</span>
                             </div>
@@ -718,7 +1370,7 @@
                         </div>
 
                         <div>
-                            <div class="flex justify-between text-xs font-p3 tracking-widest text-[#73edff] mb-1">
+                            <div class="flex justify-between text-xs font-p3 tracking-widest text-[#73edff] mb-1 p4-highlight-text">
                                 <span>COMMUNITY & LEADERSHIP</span>
                                 <span>ACTIVE (SASE)</span>
                             </div>
@@ -726,99 +1378,85 @@
                                 <div class="p3-gauge-fill" style="width: 85%;"></div>
                             </div>
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
-
         </div>
     </section>
 
     <!-- SECTION 2: SKILLS -->
     <section id="skills" class="relative py-24 bg-[#000c1e] z-10">
         <div class="container mx-auto px-6 max-w-6xl">
-            
             <div class="flex items-center gap-4 mb-12">
-                <h2 class="font-p3 text-5xl font-black tracking-wider text-white">
-                    02 // <span class="text-[#ff0055]">EQUIPPED SKILLS</span>
-                </h2>
+                <h2 class="font-p3 text-5xl font-black tracking-wider text-white p4-dark-text">02 // EQUIPPED SKILLS</h2>
                 <div class="h-1 flex-1 bg-gradient-to-r from-[#ff0055] to-transparent"></div>
             </div>
 
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-                
                 <div class="p3-card p-5 flex flex-col items-center text-center group cursor-default">
-                    <span class="font-p3 text-4xl text-[#73edff] group-hover:text-[#ff0055] transition-colors mb-2">C</span>
+                    <span class="font-p3 text-4xl text-[#73edff] group-hover:text-[#ff0055] transition-colors mb-2 p4-highlight-text">C</span>
                     <span class="font-p3 text-xl text-white">C PROGRAMMING</span>
                     <span class="text-[10px] text-gray-400 font-mono">SYSTEMS & EMBEDDED</span>
                 </div>
 
                 <div class="p3-card p-5 flex flex-col items-center text-center group cursor-default">
-                    <i class="fa-brands fa-java text-4xl text-[#73edff] group-hover:text-[#ff0055] transition-colors mb-2"></i>
+                    <i class="fa-brands fa-java text-4xl text-[#73edff] group-hover:text-[#ff0055] transition-colors mb-2 p4-highlight-text"></i>
                     <span class="font-p3 text-xl text-white">JAVA</span>
                     <span class="text-[10px] text-gray-400 font-mono">OBJECT ORIENTED</span>
                 </div>
 
                 <div class="p3-card p-5 flex flex-col items-center text-center group cursor-default">
-                    <i class="fa-brands fa-html5 text-4xl text-[#73edff] group-hover:text-[#ff0055] transition-colors mb-2"></i>
+                    <i class="fa-brands fa-html5 text-4xl text-[#73edff] group-hover:text-[#ff0055] transition-colors mb-2 p4-highlight-text"></i>
                     <span class="font-p3 text-xl text-white">HTML / CSS</span>
                     <span class="text-[10px] text-gray-400 font-mono">WEB LAYOUTS</span>
                 </div>
 
                 <div class="p3-card p-5 flex flex-col items-center text-center group cursor-default">
-                    <i class="fa-brands fa-raspberry-pi text-4xl text-[#73edff] group-hover:text-[#ff0055] transition-colors mb-2"></i>
+                    <i class="fa-brands fa-raspberry-pi text-4xl text-[#73edff] group-hover:text-[#ff0055] transition-colors mb-2 p4-highlight-text"></i>
                     <span class="font-p3 text-xl text-white">RASPBERRY PI</span>
                     <span class="text-[10px] text-gray-400 font-mono">HARDWARE & SENSORS</span>
                 </div>
 
                 <div class="p3-card p-5 flex flex-col items-center text-center group cursor-default">
-                    <i class="fa-brands fa-github text-4xl text-[#73edff] group-hover:text-[#ff0055] transition-colors mb-2"></i>
+                    <i class="fa-brands fa-github text-4xl text-[#73edff] group-hover:text-[#ff0055] transition-colors mb-2 p4-highlight-text"></i>
                     <span class="font-p3 text-xl text-white">GIT / GITHUB</span>
                     <span class="text-[10px] text-gray-400 font-mono">VERSION CONTROL</span>
                 </div>
 
                 <div class="p3-card p-5 flex flex-col items-center text-center group cursor-default">
-                    <i class="fa-solid fa-code text-4xl text-[#73edff] group-hover:text-[#ff0055] transition-colors mb-2"></i>
+                    <i class="fa-solid fa-code text-4xl text-[#73edff] group-hover:text-[#ff0055] transition-colors mb-2 p4-highlight-text"></i>
                     <span class="font-p3 text-xl text-white">VS CODE</span>
                     <span class="text-[10px] text-gray-400 font-mono">DEVELOPMENT ENVIRONMENT</span>
                 </div>
 
                 <div class="p3-card p-5 flex flex-col items-center text-center group cursor-default">
-                    <i class="fa-solid fa-laptop-code text-4xl text-[#73edff] group-hover:text-[#ff0055] transition-colors mb-2"></i>
+                    <i class="fa-solid fa-laptop-code text-4xl text-[#73edff] group-hover:text-[#ff0055] transition-colors mb-2 p4-highlight-text"></i>
                     <span class="font-p3 text-xl text-white">ECLIPSE IDE</span>
                     <span class="text-[10px] text-gray-400 font-mono">JAVA ENVIRONMENT</span>
                 </div>
-
             </div>
-
         </div>
     </section>
 
     <!-- SECTION 3: PROJECTS -->
     <section id="projects" class="relative py-24 bg-[#001738] skew-angle border-t-4 border-[#ff0055] z-10">
         <div class="container mx-auto px-6 max-w-6xl unskew">
-            
             <div class="flex items-center gap-4 mb-12">
-                <h2 class="font-p3 text-5xl font-black tracking-wider text-white">
-                    03 // <span class="text-[#73edff]">PROJECT LOGS</span>
-                </h2>
+                <h2 class="font-p3 text-5xl font-black tracking-wider text-white p4-dark-text">03 // PROJECT LOGS</h2>
                 <div class="h-1 flex-1 bg-gradient-to-r from-[#0052cc] to-transparent"></div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                
                 <div class="p3-card p-6 flex flex-col justify-between">
                     <div>
                         <div class="flex justify-between items-start mb-4">
                             <span class="bg-[#ff0055] text-white font-p3 px-3 py-1 text-sm -skew-x-12">GROUP PROJECT</span>
-                            <a href="https://github.com/utasase/MavMarket" target="_blank" class="text-[#73edff] hover:text-white transition-colors">
+                            <a href="https://github.com/utasase/MavMarket" target="_blank" class="text-[#73edff] hover:text-white transition-colors p4-highlight-text">
                                 <i class="fa-brands fa-github text-2xl"></i>
                             </a>
                         </div>
                         <h3 class="font-p3 text-3xl text-white mb-2">MAVMARKET</h3>
-                        <p class="text-xs text-[#73edff] font-mono mb-4 uppercase">University Marketplace Mobile App for UTA Students</p>
+                        <p class="text-xs text-[#73edff] font-mono mb-4 uppercase p4-highlight-text">University Marketplace Mobile App for UTA Students</p>
                         <p class="text-gray-300 text-sm leading-relaxed mb-6">
                             Group initiative building a full-stack campus marketplace for students to browse, buy, and sell items. Implements active listing management, messaging, Supabase backend integration, and Stripe API checkout webhooks.
                         </p>
@@ -841,12 +1479,12 @@
                     <div>
                         <div class="flex justify-between items-start mb-4">
                             <span class="bg-[#0052cc] text-white font-p3 px-3 py-1 text-sm -skew-x-12">HARDWARE // C</span>
-                            <a href="https://github.com/echango5" target="_blank" class="text-[#73edff] hover:text-white transition-colors">
+                            <a href="https://github.com/echango5" target="_blank" class="text-[#73edff] hover:text-white transition-colors p4-highlight-text">
                                 <i class="fa-brands fa-github text-2xl"></i>
                             </a>
                         </div>
-                        <h3 class="font-p3 text-3xl text-white mb-2">RASPBERRY PI BURGLAR ALARM</h3>
-                        <p class="text-xs text-[#73edff] font-mono mb-4 uppercase">Event-Driven Motion Security System</p>
+                        <h3 class="font-p3 text-3xl text-white mb-2">PI ALARM</h3>
+                        <p class="text-xs text-[#73edff] font-mono mb-4 uppercase p4-highlight-text">Event-Driven Motion Security System</p>
                         <p class="text-gray-300 text-sm leading-relaxed mb-6">
                             Programmed a multi-threaded security alarm system on a Raspberry Pi using C code. Interfaces directly with motion hardware sensors via GPIO callbacks and socket programming to dispatch real-time intrusion notifications.
                         </p>
@@ -869,12 +1507,12 @@
                     <div>
                         <div class="flex justify-between items-start mb-4">
                             <span class="bg-[#ffde00] text-black font-p3 px-3 py-1 text-sm -skew-x-12">WEB DESIGN</span>
-                            <a href="#hero" class="text-[#73edff] hover:text-white transition-colors">
+                            <a href="#hero" class="text-[#73edff] hover:text-white transition-colors p4-highlight-text">
                                 <i class="fa-solid fa-globe text-2xl"></i>
                             </a>
                         </div>
-                        <h3 class="font-p3 text-3xl text-white mb-2">WEBSITE PORTFOLIO</h3>
-                        <p class="text-xs text-[#73edff] font-mono mb-4 uppercase">Personal Web Showcase</p>
+                        <h3 class="font-p3 text-3xl text-white mb-2">WEB PORTFOLIO</h3>
+                        <p class="text-xs text-[#73edff] font-mono mb-4 uppercase p4-highlight-text">Personal Web Showcase</p>
                     </div>
 
                     <div>
@@ -883,33 +1521,28 @@
                             <span class="text-[10px] font-mono bg-[#002b66] border border-[#0052cc] text-sky-200 px-2 py-1">Tailwind CSS</span>
                             <span class="text-[10px] font-mono bg-[#002b66] border border-[#0052cc] text-sky-200 px-2 py-1">JavaScript</span>
                         </div>
-                        <a href="#hero" class="p3-menu-item-link inline-block w-full text-center bg-[#002b66] hover:bg-[#0052cc] hover:text-white font-p3 text-lg text-white py-2 border border-[#0052cc] transition-all">
+                        <a href="#hero" class="inline-block w-full text-center bg-[#002b66] hover:bg-[#0052cc] hover:text-white font-p3 text-lg text-white py-2 border border-[#0052cc] transition-all">
                             CURRENT PAGE <i class="fa-solid fa-arrow-up ml-2"></i>
                         </a>
                     </div>
                 </div>
-
             </div>
-
         </div>
     </section>
 
     <!-- SECTION 4: LEADERSHIP & EXPERIENCE -->
     <section id="experience" class="relative py-24 bg-[#000c1e] z-10">
         <div class="container mx-auto px-6 max-w-6xl">
-            
             <div class="flex items-center gap-4 mb-12">
-                <h2 class="font-p3 text-5xl font-black tracking-wider text-white">
-                    04 // <span class="text-[#ffde00]">LEADERSHIP EXPERIENCE</span>
-                </h2>
+                <h2 class="font-p3 text-5xl font-black tracking-wider text-white p4-dark-text">04 // EXPERIENCE</h2>
                 <div class="h-1 flex-1 bg-gradient-to-r from-[#ffde00] to-transparent"></div>
             </div>
 
             <div class="p3-card p-8 relative">
                 <div class="flex flex-col md:flex-row justify-between md:items-center mb-6 border-b border-sky-800 pb-4">
                     <div>
-                        <h3 class="font-p3 text-3xl text-white">SASE JUNIOR OFFICER / INTERN</h3>
-                        <p class="text-sm font-mono text-[#73edff]">Society of Asian Scientists and Engineers (SASE) • UT Arlington</p>
+                        <h3 class="font-p3 text-3xl text-white">SASE OFFICER</h3>
+                        <p class="text-sm font-mono text-[#73edff] p4-highlight-text">Society of Asian Scientists and Engineers (SASE) • UT Arlington</p>
                     </div>
                     <span class="mt-2 md:mt-0 font-p3 text-lg bg-[#ff0055] text-white px-4 py-1 -skew-x-12 inline-block">
                         OCT 2025 – MAY 2026
@@ -918,34 +1551,29 @@
 
                 <ul class="flex flex-col gap-3 text-gray-300 text-sm sm:text-base">
                     <li class="flex items-start gap-3">
-                        <i class="fa-solid fa-caret-right text-[#73edff] mt-1"></i>
+                        <i class="fa-solid fa-caret-right text-[#73edff] mt-1 p4-highlight-text"></i>
                         <span>Collaborated with Marketing Chairs to create targeted promotional content aligned with national SASE branding and event marketing needs.</span>
                     </li>
                     <li class="flex items-start gap-3">
-                        <i class="fa-solid fa-caret-right text-[#73edff] mt-1"></i>
+                        <i class="fa-solid fa-caret-right text-[#73edff] mt-1 p4-highlight-text"></i>
                         <span>Coordinated with junior officer teams on logistics, materials, timelines, and deadlines to support campus event execution.</span>
                     </li>
                 </ul>
             </div>
-
         </div>
     </section>
 
     <!-- SECTION 5: CONTACT -->
     <section id="contact" class="relative py-24 bg-[#001229] border-t-4 border-[#0052cc] skew-angle z-10">
         <div class="container mx-auto px-6 max-w-6xl unskew">
-            
             <div class="flex items-center gap-4 mb-12">
-                <h2 class="font-p3 text-5xl font-black tracking-wider text-white">
-                    05 // <span class="text-[#73edff]">SYSTEM // CONTACT</span>
-                </h2>
+                <h2 class="font-p3 text-5xl font-black tracking-wider text-white p4-dark-text">05 // CONTACT</h2>
                 <div class="h-1 flex-1 bg-gradient-to-r from-[#0052cc] to-transparent"></div>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                
                 <a href="mailto:ean7040@mavs.uta.edu" class="p3-card p-6 flex flex-col items-center text-center hover:border-[#ff0055] transition-all group">
-                    <div class="w-14 h-14 bg-[#002b66] border border-[#0052cc] flex items-center justify-center text-[#73edff] text-2xl group-hover:bg-[#ff0055] group-hover:text-white transition-colors mb-4">
+                    <div class="w-14 h-14 bg-[#002b66] border border-[#0052cc] flex items-center justify-center text-[#73edff] text-2xl group-hover:bg-[#ff0055] group-hover:text-white transition-colors mb-4 p4-highlight-text">
                         <i class="fa-solid fa-envelope"></i>
                     </div>
                     <p class="text-xs font-mono text-gray-400 uppercase mb-1">EMAIL ADDRESS</p>
@@ -953,7 +1581,7 @@
                 </a>
 
                 <a href="tel:6822596395" class="p3-card p-6 flex flex-col items-center text-center hover:border-[#ff0055] transition-all group">
-                    <div class="w-14 h-14 bg-[#002b66] border border-[#0052cc] flex items-center justify-center text-[#73edff] text-2xl group-hover:bg-[#ff0055] group-hover:text-white transition-colors mb-4">
+                    <div class="w-14 h-14 bg-[#002b66] border border-[#0052cc] flex items-center justify-center text-[#73edff] text-2xl group-hover:bg-[#ff0055] group-hover:text-white transition-colors mb-4 p4-highlight-text">
                         <i class="fa-solid fa-phone"></i>
                     </div>
                     <p class="text-xs font-mono text-gray-400 uppercase mb-1">PHONE NUMBER</p>
@@ -961,7 +1589,7 @@
                 </a>
 
                 <a href="https://github.com/echango5" target="_blank" class="p3-card p-6 flex flex-col items-center text-center hover:border-[#ff0055] transition-all group">
-                    <div class="w-14 h-14 bg-[#002b66] border border-[#0052cc] flex items-center justify-center text-[#73edff] text-2xl group-hover:bg-[#ff0055] group-hover:text-white transition-colors mb-4">
+                    <div class="w-14 h-14 bg-[#002b66] border border-[#0052cc] flex items-center justify-center text-[#73edff] text-2xl group-hover:bg-[#ff0055] group-hover:text-white transition-colors mb-4 p4-highlight-text">
                         <i class="fa-brands fa-github"></i>
                     </div>
                     <p class="text-xs font-mono text-gray-400 uppercase mb-1">GITHUB PROFILE</p>
@@ -969,15 +1597,13 @@
                 </a>
 
                 <a href="https://www.linkedin.com/in/" target="_blank" class="p3-card p-6 flex flex-col items-center text-center hover:border-[#ff0055] transition-all group">
-                    <div class="w-14 h-14 bg-[#002b66] border border-[#0052cc] flex items-center justify-center text-[#73edff] text-2xl group-hover:bg-[#ff0055] group-hover:text-white transition-colors mb-4">
+                    <div class="w-14 h-14 bg-[#002b66] border border-[#0052cc] flex items-center justify-center text-[#73edff] text-2xl group-hover:bg-[#ff0055] group-hover:text-white transition-colors mb-4 p4-highlight-text">
                         <i class="fa-brands fa-linkedin"></i>
                     </div>
                     <p class="text-xs font-mono text-gray-400 uppercase mb-1">LINKEDIN</p>
                     <p class="font-p3 text-lg text-white">Ethan Ngo</p>
                 </a>
-
             </div>
-
         </div>
     </section>
 
@@ -986,116 +1612,95 @@
         <p>© 2026 ETHAN ALEXANDER NGO. PORTFOLIO THEME DESIGN.</p>
     </footer>
 
-    <!-- =========================================================
-         PERSONA EXPANDING WHITE THEN DARK BLUE RIPPLE OVERLAY & ENLARGED MODAL
-    ========================================================= -->
+    <!-- PERSONA EXPANDING OVERLAY MODAL -->
     <div id="persona-overlay">
-        <!-- Expanding Ripple Rings -->
         <div class="ripple-ring ripple-ring-1"></div>
         <div class="ripple-ring ripple-ring-2"></div>
-
-        <!-- Blurred Background Backdrop -->
         <div class="modal-backdrop" id="modal-close-backdrop"></div>
 
-        <!-- Central Persona Information Modal Container -->
         <div class="modal-content-box">
-            
-            <!-- Close Button -->
             <button id="modal-close-btn" class="absolute top-4 right-4 text-white hover:text-[#ff0055] font-p3 text-2xl transition-colors z-20">
                 <i class="fa-solid fa-xmark"></i> [ESC / CLOSE]
             </button>
 
-            <!-- Header Title -->
             <div class="border-b-2 border-[#0052cc] pb-3 mb-5">
-                <span class="font-p3 text-xs tracking-widest text-[#73edff] uppercase">SYSTEM // PERSONAL ARCHIVE</span>
+                <span class="font-p3 text-xs tracking-widest text-[#73edff] uppercase p4-highlight-text">SYSTEM // PERSONAL ARCHIVE</span>
                 <h2 class="font-p3 text-4xl sm:text-5xl text-white font-black">PERSONA DETAILS</h2>
             </div>
 
-            <!-- Stylized Quote -->
             <div class="bg-[#001c40] border-l-4 border-[#ff0055] p-4 mb-6 text-center sm:text-left">
                 <p class="font-quote text-lg sm:text-2xl text-sky-100 leading-snug">
                     "Talent is something you make bloom, instinct is something you polish"
                 </p>
             </div>
 
-            <!-- Interests & Dynamic Detail Panel Grid -->
             <div>
-                <p class="font-p3 text-base text-[#73edff] tracking-wider mb-4">
+                <p class="font-p3 text-base text-[#73edff] tracking-wider mb-4 p4-highlight-text">
                     SOME INTERESTS OF MINE <span class="text-gray-400 text-xs font-mono">[TAP OR CLICK TO VIEW]</span>:
                 </p>
 
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                    
-                    <!-- Left Column: Interactive Interest List -->
                     <div class="lg:col-span-6 flex flex-col gap-3">
-                        
                         <div class="interest-item active-interest" data-info="Since 2021, casual" data-title="VOLLEYBALL" data-img="jump.png">
-                            <span><i class="fa-solid fa-volleyball mr-3 text-[#ff0055]"></i> Volleyball</span>
+                            <span><i class="fa-solid fa-volleyball mr-3 text-[#ff0055] p4-highlight-text"></i> Volleyball</span>
                             <i class="fa-solid fa-chevron-right text-xs"></i>
                         </div>
 
                         <div class="interest-item" data-info="A lifetime hobby and joy" data-title="DRAWING / ILLUSTRATION" data-img="ichi.png">
-                            <span><i class="fa-solid fa-palette mr-3 text-[#ff0055]"></i> Drawing/Illustration</span>
+                            <span><i class="fa-solid fa-palette mr-3 text-[#ff0055] p4-highlight-text"></i> Drawing/Illustration</span>
                             <i class="fa-solid fa-chevron-right text-xs"></i>
                         </div>
 
                         <div class="interest-item" data-info="Since 2025, for my health and personal interests" data-title="WORKING OUT / RUNNING" data-img="flex.jpg">
-                            <span><i class="fa-solid fa-dumbbell mr-3 text-[#ff0055]"></i> Working out/running</span>
+                            <span><i class="fa-solid fa-dumbbell mr-3 text-[#ff0055] p4-highlight-text"></i> Working out/running</span>
                             <i class="fa-solid fa-chevron-right text-xs"></i>
                         </div>
 
                         <div class="interest-item" data-info="A fun and entertaining interest of mine" data-title="VIDEO GAMES" data-img="game.jpg">
-                            <span><i class="fa-solid fa-gamepad mr-3 text-[#ff0055]"></i> Video games</span>
+                            <span><i class="fa-solid fa-gamepad mr-3 text-[#ff0055] p4-highlight-text"></i> Video games</span>
                             <i class="fa-solid fa-chevron-right text-xs"></i>
                         </div>
 
                         <div class="interest-item" data-info="A cinematic vent and source of new illustrative inspiration" data-title="ANIME" data-img="stark.jpg">
-                            <span><i class="fa-solid fa-film mr-3 text-[#ff0055]"></i> Anime</span>
+                            <span><i class="fa-solid fa-film mr-3 text-[#ff0055] p4-highlight-text"></i> Anime</span>
                             <i class="fa-solid fa-chevron-right text-xs"></i>
                         </div>
 
                         <div class="interest-item" data-info="To the fullest!!" data-title="HAVING FUN WITH FRIENDS" data-img="fun.png">
-                            <span><i class="fa-solid fa-users mr-3 text-[#ff0055]"></i> Having fun with friends...</span>
+                            <span><i class="fa-solid fa-users mr-3 text-[#ff0055] p4-highlight-text"></i> Having fun with friends...</span>
                             <i class="fa-solid fa-chevron-right text-xs"></i>
                         </div>
-
                     </div>
 
-                    <!-- Right Column: P3R Style Info Box Panel with Dynamic Square (1:1) Image -->
                     <div class="lg:col-span-6">
                         <div class="side-info-card">
                             <div class="flex justify-between items-center">
                                 <span class="side-info-badge">
                                     <i class="fa-solid fa-circle-info text-[10px]"></i> Details
                                 </span>
-                                <span id="interest-display-filename" class="text-[10px] font-mono text-[#73edff] opacity-80">jump.png</span>
+                                <span id="interest-display-filename" class="text-[10px] font-mono text-[#73edff] opacity-80 p4-highlight-text">jump.png</span>
                             </div>
 
                             <div>
-                                <h4 id="interest-display-title" class="font-p3 text-3xl text-[#73edff] mb-1 tracking-wide">
+                                <h4 id="interest-display-title" class="font-p3 text-3xl text-[#73edff] mb-1 tracking-wide p4-highlight-text">
                                     VOLLEYBALL
                                 </h4>
-
                                 <p id="interest-display-info" class="text-gray-200 text-sm sm:text-base leading-relaxed font-mono mb-2">
                                     Since 2021, casual
                                 </p>
                             </div>
 
-                            <!-- 1:1 Square Dynamic Image Display Frame with object-contain to avoid cropping -->
                             <div class="interest-img-frame">
                                 <img id="interest-display-img" src="jump.png" alt="Volleyball Image">
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
-
         </div>
     </div>
 
     <script>
-        /* Smooth Decelerating Scroll Animation Engine */
         function smoothScrollTo(targetSelector, duration = 1200) {
             const target = document.querySelector(targetSelector);
             if (!target) return;
@@ -1125,7 +1730,6 @@
             requestAnimationFrame(animation);
         }
 
-        /* Intercept Menu Links for Eased Decelerating Scroll */
         document.querySelectorAll('a[href^="#"]').forEach(button => {
             button.addEventListener('click', function(e) {
                 const targetId = this.getAttribute('href');
@@ -1136,13 +1740,11 @@
             });
         });
 
-        /* Parallax Motion Handler for Side Typography & Shards */
         const sideText = document.getElementById('side-text');
         const shards = document.querySelectorAll('.parallax-shard');
         
         window.addEventListener('scroll', () => {
             const scrollY = window.scrollY;
-            
             const translateY = scrollY * 0.35;
             sideText.style.transform = `translateY(${translateY}px) rotate(180deg) skewY(-8deg)`;
 
@@ -1153,7 +1755,6 @@
             });
         }, { passive: true });
 
-        /* Ambient Underwater Bubble Particle Canvas Engine */
         const canvas = document.getElementById('p3-bg-canvas');
         const ctx = canvas.getContext('2d');
 
@@ -1169,7 +1770,11 @@
                 this.reset();
             }
             reset() {
-                this.x = Math.random() * canvas.width;
+                if (Math.random() < 0.5) {
+                    this.x = Math.random() * (canvas.width * 0.3);
+                } else {
+                    this.x = (canvas.width * 0.65) + Math.random() * (canvas.width * 0.35);
+                }
                 this.y = canvas.height + Math.random() * 100;
                 this.radius = Math.random() * 3 + 1;
                 this.speed = Math.random() * 1.5 + 0.5;
@@ -1182,9 +1787,10 @@
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(0, 82, 204, ${this.alpha})`;
+                const currentTheme = document.body.classList.contains('theme-p5') ? 'p5' : (document.body.classList.contains('theme-p4') ? 'p4' : 'p3');
+                ctx.fillStyle = currentTheme === 'p4' ? `rgba(17, 17, 17, ${this.alpha})` : (currentTheme === 'p5' ? `rgba(255, 255, 255, ${this.alpha})` : `rgba(0, 82, 204, ${this.alpha})`);
                 ctx.shadowBlur = 8;
-                ctx.shadowColor = '#0052cc';
+                ctx.shadowColor = currentTheme === 'p4' ? '#111111' : (currentTheme === 'p5' ? '#ff0033' : '#0052cc');
                 ctx.fill();
             }
         }
@@ -1201,24 +1807,70 @@
         }
         animateCanvas();
 
-        /* =========================================================
-           PERSONA OVERLAY & INTERACTION HANDLERS
-        ========================================================= */
+        /* 3-Way Theme Cycle & Transition Logic */
+        const themeToggleBtn = document.getElementById('theme-toggle-btn');
+        const themeBtnLabel = document.getElementById('theme-btn-label');
+        const p4TransitionOverlay = document.getElementById('p4-transition-overlay');
+
+        themeToggleBtn.addEventListener('click', () => {
+            const isP3 = !document.body.classList.contains('theme-p4') && !document.body.classList.contains('theme-p5');
+            const isP4 = document.body.classList.contains('theme-p4');
+            const isP5 = document.body.classList.contains('theme-p5');
+
+            if (isP3) {
+                p4TransitionOverlay.className = 'animating p3-to-p4';
+                setTimeout(() => {
+                    document.body.classList.add('theme-p4');
+                    themeBtnLabel.textContent = 'CLICK ME';
+                    themeToggleBtn.style.backgroundColor = '#111111';
+                    themeToggleBtn.style.color = '#ffea00';
+                    themeToggleBtn.style.borderColor = '#ffffff';
+                }, 450);
+                setTimeout(() => {
+                    p4TransitionOverlay.className = '';
+                }, 1100);
+
+            } else if (isP4) {
+                p4TransitionOverlay.className = 'animating p4-to-p5';
+                setTimeout(() => {
+                    document.body.classList.remove('theme-p4');
+                    document.body.classList.add('theme-p5');
+                    themeBtnLabel.textContent = 'CLICK ME';
+                    themeToggleBtn.style.backgroundColor = '#000000';
+                    themeToggleBtn.style.color = '#ffffff';
+                    themeToggleBtn.style.borderColor = '#ff0033';
+                }, 420);
+                setTimeout(() => {
+                    p4TransitionOverlay.className = '';
+                }, 1050);
+
+            } else if (isP5) {
+                p4TransitionOverlay.className = 'animating p5-to-p3';
+                setTimeout(() => {
+                    document.body.classList.remove('theme-p5');
+                    themeBtnLabel.textContent = 'CLICK ME';
+                    themeToggleBtn.style.backgroundColor = '#ffea00';
+                    themeToggleBtn.style.color = '#000000';
+                    themeToggleBtn.style.borderColor = '#000000';
+                }, 450);
+                setTimeout(() => {
+                    p4TransitionOverlay.className = '';
+                }, 1100);
+            }
+        });
+
         const personaTriggerBtn = document.getElementById('persona-trigger-btn');
         const personaOverlay = document.getElementById('persona-overlay');
         const modalCloseBtn = document.getElementById('modal-close-btn');
         const modalCloseBackdrop = document.getElementById('modal-close-backdrop');
 
-        // Open Overlay with Expanding Rings Animation
         personaTriggerBtn.addEventListener('click', () => {
             personaOverlay.classList.add('active', 'animating');
-            
             setTimeout(() => {
                 personaOverlay.classList.remove('animating');
             }, 1000);
         });
 
-        // Close Overlay Function
         function closePersonaModal() {
             personaOverlay.classList.remove('active', 'animating');
         }
@@ -1232,7 +1884,6 @@
             }
         });
 
-        // Selection Handler for Interest Items (Works for both Mobile Tap & Desktop Hover)
         const interestItems = document.querySelectorAll('.interest-item');
         const displayTitle = document.getElementById('interest-display-title');
         const displayInfo = document.getElementById('interest-display-info');
@@ -1240,11 +1891,9 @@
         const displayFilename = document.getElementById('interest-display-filename');
 
         function updateInterestSelection(item) {
-            // Update active highlight class
             interestItems.forEach(i => i.classList.remove('active-interest'));
             item.classList.add('active-interest');
 
-            // Update side info card contents
             const title = item.getAttribute('data-title');
             const info = item.getAttribute('data-info');
             const imgSrc = item.getAttribute('data-img');
@@ -1253,7 +1902,6 @@
             displayInfo.textContent = info;
             displayFilename.textContent = imgSrc;
 
-            // Smoothly update image source
             displayImg.style.opacity = '0.2';
             setTimeout(() => {
                 displayImg.src = imgSrc;
@@ -1262,15 +1910,8 @@
         }
 
         interestItems.forEach(item => {
-            // Click / Tap Handler (Primary for Mobile)
-            item.addEventListener('click', () => {
-                updateInterestSelection(item);
-            });
-
-            // Mouseenter Handler (Desktop Hover support)
-            item.addEventListener('mouseenter', () => {
-                updateInterestSelection(item);
-            });
+            item.addEventListener('click', () => updateInterestSelection(item));
+            item.addEventListener('mouseenter', () => updateInterestSelection(item));
         });
     </script>
 </body>
